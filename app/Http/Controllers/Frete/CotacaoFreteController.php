@@ -22,10 +22,10 @@ class CotacaoFreteController extends Controller
                 ->where("peso_inicial", "<=", $request->peso)
                 ->where("peso_final", ">=", $request->peso)
                 ->with('servicos', function($q) { // Relação configurada no model \App\Models\Cotacao\VtexValor.php
-                    $q->with('transportadoras'); // Relação configurada no model \App\Models\Cotacao\Servico.php
+                    $q->with('transportadora'); // Relação configurada no model \App\Models\Cotacao\Servico.php
                 })
                 ->whereHas('servicos', function($q) { // Relação configurada no model \App\Models\Cotacao\VtexValor.php
-                    $q->whereHas('transportadoras'); // Relação configurada no model \App\Models\Cotacao\Servico.php
+                    $q->whereHas('transportadora'); // Relação configurada no model \App\Models\Cotacao\Servico.php
                 })
                 ->orderBy("valor", "ASC")
                 ->limit(100)
@@ -55,6 +55,14 @@ class CotacaoFreteController extends Controller
                 "error" => "Houve um erro inesperado, tente novamente"
             ], 400);
         }
+    }
+
+    public function buscarCotacao(\App\Models\Cotacao\Cotacao $cotacao) {
+        $cotacao->load('servico.transportadora');
+        $cotacao->load('usuario');
+        return response()->json([
+            "cotacao" => $cotacao
+        ]);
     }
 
 }

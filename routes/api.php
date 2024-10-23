@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::prefix("cotacao")->group(function() {
         Route::post("/", [\App\Http\Controllers\Frete\CotacaoFreteController::class, 'cotarFrete']);
+        Route::get("/{cotacao}", [\App\Http\Controllers\Frete\CotacaoFreteController::class, 'buscarCotacao']);
     });
 
 });

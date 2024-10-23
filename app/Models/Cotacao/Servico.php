@@ -11,7 +11,7 @@ class Servico extends Model
 
     protected $table = 'servicos';
 
-    public function transportadoras() {
+    public function transportadora() {
         return $this->hasOne(\App\Models\Cotacao\Transportadora::class, "id", "id_transportadora");
     }
 

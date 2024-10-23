@@ -17,8 +17,8 @@ class UsuarioController extends Controller
      * Method cadastrarUsuario - IMPORTANTE, A VALIDAÇÃO DE E-MAIL, SENHA E NOME É FEITO EM: \App\Http\Requests\Usuario\CadastrarUsuarioRequest
      */
     public function cadastrarUsuario(\App\Http\Requests\Usuario\CadastrarUsuarioRequest $request) {
-        DB::beginTransaction();
         try {
+            DB::beginTransaction();
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;

@@ -19,6 +19,11 @@ Route::prefix("usuario")->group(function() {
     Route::post("auth", [\App\Http\Controllers\Usuario\UsuarioController::class, 'authAPI']);
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::middleware('auth:sanctum')->group(function() {
+
+    Route::prefix("cotacao")->group(function() {
+        Route::post("/", [\App\Http\Controllers\Frete\CotacaoFreteController::class, 'cotarFrete']);
+    });
+
 });
